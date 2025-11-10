@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalle del Producto | Bazar Digital</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .contenedor-detalle {
+      max-width: 400px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .contenedor-detalle img {
+      width: 100%;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    h2 {
+      margin: 10px 0;
+    }
+
+    p {
+      font-size: 18px;
+      color: #eee;
+    }
+
+    .boton {
+      display: inline-block;
+      background: #25d366;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    .boton:hover {
+      background: #1ebe57;
+    }
+
+    .nav-botones {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .nav-botones button {
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-botones button:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    /* 🔙 Botón de volver al catálogo */
+    .btn-volver {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      text-decoration: none;
+      backdrop-filter: blur(5px);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-volver:hover {
+      background: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .btn-volver::before {
+      content: "← ";
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contenedor-detalle">
+    <img id="producto-img" src="" alt="Producto">
+    <h2 id="producto-nombre"></h2>
+    <p id="producto-precio"></p>
+    <a id="whatsapp" href="#" target="_blank" class="boton">Comprar por WhatsApp</a>
+
+    <div class="nav-botones">
+      <button onclick="cambiarProducto(-1)">⟵ Anterior</button>
+      <button onclick="cambiarProducto(1)">Siguiente ⟶</button>
+    </div>
+  </div>
+
+  <a href="index.html" class="btn-volver">Volver al catálogo</a>
+
+  <footer>
+    © 2025 Bazar Digital | Hecho con ❤ por Eduardo
+  </footer>
+
+  <script>
+    const productos = [
+      { img: "img/producto1.jpg", nombre: "Playera minimalista", precio: "$250 MXN", msg: "Hola,%20quiero%20comprar%20la%20playera%20minimalista" },
+      { img: "img/producto2.jpg", nombre: "Taza futurista", precio: "$180 MXN", msg: "Hola,%20quiero%20comprar%20la%20taza%20futurista" },
+      { img: "img/producto3.jpg", nombre: "Playera XXL", precio: "$198 MXN", msg: "Hola,%20quiero%20comprar%20la%20playera%20XXL" },
+      { img: "img/producto3.jpg", nombre: "Blusa negra Adidas", precio: "$100 MXN", msg: "Hola,%20quiero%20comprar%20la%20blusa%20negra%20Adidas" },
+      { img: "img/producto4.avif", nombre: "Abanico recargable", precio: "$150 MXN", msg: "Hola,%20quiero%20comprar%20el%20abanico%20recargable" },
+      { img: "img/producto5.PNG", nombre: "Gorra Tigres", precio: "$200 MXN", msg: "Hola,%20quiero%20comprar%20la%20gorra%20de%20Tigres" },
+      { img: "img/producto6.jpg", nombre: "Gorra NBA", precio: "$150 MXN", msg: "Hola,%20quiero%20comprar%20la%20gorra%20NBA" },
+      { img: "img/producto7.jpg", nombre: "Nintendo", precio: "$180 MXN", msg: "Hola,%20quiero%20comprar%20el%20Nintendo" },
+      { img: "img/producto8.png", nombre: "Funda iPhone 12 Pro", precio: "$100 MXN", msg: "Hola,%20quiero%20comprar%20la%20funda%20para%20iPhone%2012%20Pro" },
+      { img: "img/producto9.png", nombre: "Playera Tigres XXL", precio: "$500 MXN", msg: "Hola,%20quiero%20comprar%20la%20playera%20Tigres%20XXL" }
+    ];
+
+    let indexActual = 0;
+
+    const params = new URLSearchParams(window.location.search);
+    const nombreParam = params.get("nombre");
+
+    if (nombreParam) {
+      const idx = productos.findIndex(p => p.nombre === decodeURIComponent(nombreParam));
+      if (idx >= 0) indexActual = idx;
+    }
+
+    function mostrarProducto() {
+      const producto = productos[indexActual];
+      document.getElementById("producto-img").src = producto.img;
+      document.getElementById("producto-nombre").textContent = producto.nombre;
+      document.getElementById("producto-precio").textContent = producto.precio;
+      document.getElementById("whatsapp").href = `https://wa.me/528116740904?text=${producto.msg}`;
+    }
+
+    function cambiarProducto(direccion) {
+      indexActual += direccion;
+      if (indexActual < 0) indexActual = productos.length - 1;
+      if (indexActual >= productos.length) indexActual = 0;
+      mostrarProducto();
+    }
+
+    mostrarProducto();
+  </script>
+</body>
+</html>

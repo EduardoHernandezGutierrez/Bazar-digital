@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bazar Digital</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 🔹 Fondo general */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #00e0ff;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px #00e0ff;
+    }
+
+    header p {
+      color: #ccc;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+
+    #catalogo {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    /* 🔹 Tarjetas de producto */
+    .producto {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      width: 240px;
+      padding: 1rem;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .producto.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .producto:hover {
+      box-shadow: 0 0 15px rgba(0, 224, 255, 0.4);
+      transform: translateY(-5px);
+    }
+
+    .producto img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 0.8rem;
+    }
+
+    .producto h2 {
+      color: #00e0ff;
+      font-size: 1.1rem;
+      margin: 0.5rem 0;
+    }
+
+    .producto p {
+      color: #ddd;
+      margin: 0.3rem 0 0.8rem;
+    }
+
+    .boton {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, #0077ff, #00e0ff);
+      border-radius: 6px;
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: transform 0.3s, background 0.3s;
+    }
+
+    .boton:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #00e0ff, #0077ff);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #aaa;
+      font-size: 0.9rem;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Bazar Digital</h1>
+    <p>Encuentra productos únicos a precios increíbles</p>
+  </header>
+
+  <section id="catalogo">
+    <div class="producto" data-animar onclick="verDetalle('img/producto1.jpg','Playera minimalista','$250 MXN','Hola,%20quiero%20comprar%20la%20playera%20minimalista')">
+      <img src="img/producto1.jpg" alt="Producto 1">
+      <h2>Playera minimalista</h2>
+      <p>$250 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto2.jpg','Taza futurista','$180 MXN','Hola,%20quiero%20comprar%20la%20taza%20futurista')">
+      <img src="img/producto2.jpg" alt="Producto 2">
+      <h2>Taza futurista</h2>
+      <p>$180 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto3.jpg','Playera XXL','$198 MXN','Hola,%20quiero%20comprar%20la%20playera%20XXL')">
+      <img src="img/producto3.jpg" alt="Producto 3">
+      <h2>Playera XXL</h2>
+      <p>$198 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto4.avif','Abanico recargable','$150 MXN','Hola,%20quiero%20comprar%20el%20abanico%20recargable')">
+      <img src="img/producto4.avif" alt="Producto 4">
+      <h2>Abanico recargable</h2>
+      <p>$150 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto5.PNG','Gorra Tigres','$200 MXN','Hola,%20quiero%20comprar%20la%20gorra%20de%20Tigres')">
+      <img src="img/producto5.PNG" alt="Producto 5">
+      <h2>Gorra Tigres</h2>
+      <p>$200 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto6.jpg','Gorra NBA','$150 MXN','Hola,%20quiero%20comprar%20la%20gorra%20NBA')">
+      <img src="img/producto6.jpg" alt="Producto 6">
+      <h2>Gorra NBA</h2>
+      <p>$150 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto7.jpg','Nintendo','$180 MXN','Hola,%20quiero%20comprar%20el%20Nintendo')">
+      <img src="img/producto7.jpg" alt="Producto 7">
+      <h2>Nintendo</h2>
+      <p>$180 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto8.png','Funda iPhone 12 Pro','$100 MXN','Hola,%20quiero%20comprar%20la%20funda%20para%20iPhone%2012%20Pro')">
+      <img src="img/producto8.png" alt="Producto 8">
+      <h2>Funda iPhone 12 Pro</h2>
+      <p>$100 MXN</p>
+    </div>
+
+    <div class="producto" data-animar onclick="verDetalle('img/producto9.png','Playera Tigres XXL','$500 MXN','Hola,%20quiero%20comprar%20la%20playera%20Tigres%20XXL')">
+      <img src="img/producto9.png" alt="Producto 9">
+      <h2>Playera Tigres XXL</h2>
+      <p>$500 MXN</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Bazar Digital | Hecho con ❤ por Eduardo
+  </footer>
+
+  <script>
+    function verDetalle(imagen, nombre, precio, mensaje) {
+      const url = `detalle.html?img=${encodeURIComponent(imagen)}&nombre=${encodeURIComponent(nombre)}&precio=${encodeURIComponent(precio)}&msg=${encodeURIComponent(mensaje)}`;
+      window.location.href = url;
+    }
+
+    const elementos = document.querySelectorAll("[data-animar]");
+    function animarScroll() {
+      const trigger = window.innerHeight * 0.85;
+      elementos.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < trigger) el.classList.add("visible");
+      });
+    }
+    window.addEventListener("scroll", animarScroll);
+    animarScroll();
+  </script>
+
+</body>
+</html>
